@@ -134,25 +134,27 @@ services:
       - cadvisor:cadvisor
       - node-exporter:node-exporter
       - node
-  
-  #node-exporter:
-  #  image: prom/node-exporter:latest
-  #  container_name: monitoring_node_exporter
-  #  restart: unless-stopped
-  #  expose:
-  #    - 9100
-  #
-  #cadvisor:
-  #  image: google/cadvisor:latest
-  #  container_name: monitoring_cadvisor
-  #  restart: unless-stopped
-  #  volumes:
-  #    - /:/rootfs:ro
-  #    - /var/run:/var/run:rw
-  #    - /sys:/sys:ro
-  #    - /var/lib/docker/:/var/lib/docker:ro
-  #  expose:
-  #    - 8080
+
+  #Deploy container Node Exporter, utilizado pelo Prometheus para coletar métricas sobre o Hardware e Sistema Operacional
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: monitoring_node_exporter
+    restart: unless-stopped
+    expose:
+      - 9100
+
+  #Deploy container cAdvisor, utilizado para coletar métricas de recursos dos containers/aplicações rodando no servidor
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: monitoring_cadvisor
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    expose:
+      - 8080
 networks:
   graylog:
     driver: bridge

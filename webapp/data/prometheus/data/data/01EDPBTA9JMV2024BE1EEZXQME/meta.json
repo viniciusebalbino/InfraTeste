@@ -1,0 +1,17 @@
+{
+	"ulid": "01EDPBTA9JMV2024BE1EEZXQME",
+	"minTime": 1595246400000,
+	"maxTime": 1595253600000,
+	"stats": {
+		"numSamples": 130167,
+		"numSeries": 429,
+		"numChunks": 810
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01EDPBTA9JMV2024BE1EEZXQME"
+		]
+	},
+	"version": 1
+}

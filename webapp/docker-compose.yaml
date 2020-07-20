@@ -105,7 +105,7 @@ services:
       - 3005
     environment:
       GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: sawdaD32
+      GF_SECURITY_ADMIN_PASSWORD: saQF3lD32
     volumes:
       #Cria o datasource do prometheus
       - ./config/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml

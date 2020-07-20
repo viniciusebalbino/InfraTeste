@@ -1,4 +1,4 @@
-var express = require('express')
+var express = require('express');
 const graylog2 = require('graylog2');
 var router = express.Router();
 var db=require('../database');
@@ -20,11 +20,11 @@ const logger = new graylog2.graylog({
     var sql = `INSERT INTO tb_form (kwf_name, kwf_email, kwf_comment ) VALUES ('${name}', '${email}', '${comment}' )`;
 
     db.query(sql,function (err, data) { 
-        if (err) throw err;
-           console.log("Dados inseridos com sucesso!");
-           logger.log('Dados inseridos com sucesso!');
+      if (err) throw err;
+        console.log("Dados inseridos com sucesso!");
+        logger.log('Dados inseridos com sucesso!');
     });
-   res.redirect('/');  // Redireciona para página inicial
+    res.redirect('/');  // Redireciona para página inicial
   }); 
   
   module.exports = router;

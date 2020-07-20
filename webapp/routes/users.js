@@ -10,6 +10,7 @@ const logger = new graylog2.graylog({
     res.render('users'); 
   });
 
+  //Recebe dados do formulário via post, insere os dados no banco, ao fim, redireciona para página do formulário novamente
   router.post('/create', function(req, res, next) {
   
     var name     = req.body.name;
@@ -23,7 +24,7 @@ const logger = new graylog2.graylog({
            console.log("Dados inseridos com sucesso!");
            logger.log('Dados inseridos com sucesso!');
     });
-   res.redirect('/');  // redirect to user form page after inserting the data
+   res.redirect('/');  // Redireciona para página inicial
   }); 
   
   module.exports = router;

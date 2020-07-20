@@ -1,5 +1,6 @@
 apiVersion: 1
 
+#Cria dashboards do node dentro do Grafana
 providers:
 - name: 'Node via Prometheus'
   orgId: 1

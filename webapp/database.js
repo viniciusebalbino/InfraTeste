@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+//String de conexão do sistema web com o MySQL
 var conn = mysql.createConnection({
   host: 'mysql',
   user: 'root',
@@ -6,8 +7,4 @@ var conn = mysql.createConnection({
   database: 'kabum_webform',
   port: 3306
 }); 
-//conn.connect(function(err) {
-//if (err) throw err;
-//  console.log('Database is connected successfully !');
-//});
 module.exports = conn;

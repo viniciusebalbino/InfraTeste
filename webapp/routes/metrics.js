@@ -1,3 +1,4 @@
+//Coleta dados referente ao nodeJS e envia ao prometheus
 var express = require('express')
 const Prometheus = require('prom-client');
 var express = require('express');

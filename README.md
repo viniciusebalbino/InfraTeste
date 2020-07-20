@@ -54,6 +54,13 @@ Após iniciado o projeto com o comando acima, o acesso aos sistemas acontece atr
 	-User: admin <br/>
 	-Password: saQF3lD32 <br/>
 **Acesso ao Prometheus:** http://localhost:9090/<br/>
+**Acesso ao Banco de dados** Via Gerenciador de MySQL, conectar no servidor de banco:<br/>
+	-server: localhost<br/>
+	-porta: 3307<br/>
+	-User: root <br/>
+	-Password: password <br/>
+
+Os dados do formulário preenchidos estão localizados dentro do banco de dados, na database: kabum_webform; tabela: tb_form. <br/>
 
 A Dashboard de monitoramento do NodeJS que já vem pré configurada no grafana, pode ser acessada via webinterface do grafana em:<br/>
 Dashboards > Manage<br/>

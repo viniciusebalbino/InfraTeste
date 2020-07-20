@@ -1,0 +1,17 @@
+{
+	"ulid": "01EDQ76Q3SHJQHAPE790PE6F6B",
+	"minTime": 1595268000000,
+	"maxTime": 1595275200000,
+	"stats": {
+		"numSamples": 12494,
+		"numSeries": 381,
+		"numChunks": 381
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01EDQ76Q3SHJQHAPE790PE6F6B"
+		]
+	},
+	"version": 1
+}

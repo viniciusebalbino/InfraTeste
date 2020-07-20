@@ -43,4 +43,19 @@ __Arquivo com todas as dependências do projeto instaladas via npm install<br/>
 # Setup inicial
 
 Para configurar e executar o projeto, basta executar via terminal o arquivo **initscript.sh** localizado na raiz do projeto **/InfraTeste/initscript.sh**<br/>
-<code>sudo ./initscript.sh</code>
+<code>sudo ./initscript.sh</code><br/>
+
+Após iniciado o projeto com o comando acima, o acesso aos sistemas acontece através das url's:<br/>
+**Acesso ao sistema de comentários:** http://localhost:3001/<br/>
+**Acesso ao GrayLog:** http://localhost:9000/<br/>
+	-User: admin <br/>
+	-Password: admin<br/>
+**Acesso ao Grafana:** http://localhost:3005/<br/>
+	-User: admin <br/>
+	-Password: saQF3lD32 <br/>
+**Acesso ao Prometheus:** http://localhost:9090/<br/>
+
+A Dashboard de monitoramento do NodeJS que já vem pré configurada no grafana, pode ser acessada via webinterface do grafana em:<br/>
+Dashboards > Manage<br/>
+selecionando a dashboard: <br/>
+**NodeJS Application Dashboard**<br/>

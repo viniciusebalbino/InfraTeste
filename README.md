@@ -39,3 +39,8 @@ __Arquivo responsável por toda configuração dos containers via docker-compose
 __Arquivo com as definições via dockerfile para o container do nodejs<br/>
 **package.json**<br/>
 __Arquivo com todas as dependências do projeto instaladas via npm install<br/>
+
+# Setup inicial
+
+Para configurar e executar o projeto, basta executar via terminal o arquivo **initscript.sh** localizado na raiz do projeto **/InfraTeste/initscript.sh**<br/>
+<code>sudo ./initscript.sh</code>

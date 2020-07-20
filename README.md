@@ -12,8 +12,8 @@ Existe outra view (error.ejs) responsável pelo retorno de error, contendo uma m
 <br/>
 Existem 3 routes:<br/>
 **index.js**<br/>
-    Responsável pelo gerenciamento de requisições da homepage (Formulário)<br/>
+__Responsável pelo gerenciamento de requisições da homepage (Formulário)<br/>
 **metrics.js**<br/>
-    Responsável pela coleta das métricas do NodeJS e envio ao prometheus<br/>
+__Responsável pela coleta das métricas do NodeJS e envio ao prometheus<br/>
 **users.js**<br/>
-    Responsável por receber os dados vindos do formulário, processá-los, armazena-los e retornar o usuário à página inicial<br/>
+__Responsável por receber os dados vindos do formulário, processá-los, armazena-los e retornar o usuário à página inicial<br/>

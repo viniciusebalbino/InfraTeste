@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>KaBuM Teste  </title>
+</head>
+<body>
+<div id="info" align="center">
+<img src="../images/logo_kabum.png">
+<h1>Teste Infraestrutura</h1>
+<form action="/users/create" method="POST">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" placeholder="Seu nome" />
+    <br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Seu Email" />
+    <br><br>
+        <label for="comment">Comentário: </label>
+        <br>
+        <span id="cont">300</span> /300 <br>
+        <textarea onkeyup="limite_textarea(this.value)" id="texto" name="comment" rows="10" cols="30" placeholder="Seu Comentário"></textarea>
+        <script>
+            function limite_textarea(valor) {
+            quant = 300;
+            total = valor.length;
+            if(total <= quant) {
+                resto = quant - total;
+                document.getElementById('cont').innerHTML = resto;
+            } else {
+                document.getElementById('texto').value = valor.substr(0,quant);
+            }
+        }
+        </script>
+    <br><br>
+        <input type="submit" value="Enviar Dados" />
+</form>
+</div>
+</body>
+</html>

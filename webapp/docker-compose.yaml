@@ -1,0 +1,159 @@
+version: "3.3"
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: kabum_webform
+      MYSQL_HOST: localhost
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - graylog
+      - monitoring-network
+    ports:
+      - '3307:3306'
+    expose:
+      - 3307
+      - 3306
+    volumes:
+      - /var/lib/mysql
+      - ./mysql/migrations/migration.sql:/docker-entrypoint-initdb.d/migration.sql
+    restart: unless-stopped
+        
+
+  node:
+    build: 
+      dockerfile: ./Dockerfile
+      context: .
+    image: node
+    container_name: node
+    networks:
+      - graylog
+      - monitoring-network
+    links:
+      - mysql
+      - graylog
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./:/var/www
+    
+
+  #GrayLog
+  # MongoDB: https://hub.docker.com/_/mongo/
+  mongo:
+    image: mongo:3
+    networks:
+      - graylog
+  # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/6.x/docker.html
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.5
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    networks:
+      - graylog
+  # Graylog: https://hub.docker.com/r/graylog/graylog/
+  graylog:
+    image: graylog/graylog:3.3
+    environment:
+      # CHANGE ME (must be at least 16 characters)!
+      - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
+      # Password: admin
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
+    networks:
+      - graylog
+    depends_on:
+      - mongo
+      - elasticsearch
+    ports:
+      # Graylog web interface and REST API
+      - 9000:9000
+      # Syslog TCP
+      - 1514:1514
+      # Syslog UDP
+      - 1514:1514/udp
+      # GELF TCP
+      - 12201:12201
+      # GELF UDP
+      - 12201:12201/udp
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring-network
+    depends_on:
+      - prometheus
+    ports:
+      - '3005:3000'
+    expose:
+      - 3005
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: sawdaD32
+    volumes:
+      - ./config/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./config/grafana-dashboard.json:/etc/grafana/provisioning/dashboards/grafana-dashboard.json
+      - ./config/dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
+      
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: monitoring_prometheus
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data/prometheus/data:/prometheus
+    
+    #volumes:
+    #- ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    expose:
+      - 9090
+    ports:
+      - 9090:9090
+    networks:
+      - graylog
+      - monitoring-network
+    links:
+      - cadvisor:cadvisor
+      - node-exporter:node-exporter
+      - node
+  
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: monitoring_node_exporter
+    restart: unless-stopped
+    expose:
+      - 9100
+  
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: monitoring_cadvisor
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    expose:
+      - 8080
+networks:
+  graylog:
+    driver: bridge
+  monitoring-network:
+    driver: bridge
